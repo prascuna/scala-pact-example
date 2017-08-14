@@ -22,7 +22,7 @@ The return value will be the Location header of the machine in which the data go
 
 __App1__ is a __Consumer__ of App2  
 __App2__ is a __Provider__ for App1 and a __Consumer__ of App3  
-__App3__ is a __Producer__ for App2  
+__App3__ is a __Provider__ for App2  
 
 ## Build
 ### App1
@@ -43,7 +43,7 @@ We cannot run the test just yet because we first need to stub our dependencies, 
 
 This command will create a *Stubber* on port 1234 that will behave according to the Pacts retrieved from the broker.  
 Unfortunately this command also runs the tests, so we will see some errors, and that's also why we're passing those environment variables.
-Those variables are not needed by te stubber itself but by the fact that the test will run the application.  
+Those variables are not needed by the stubber itself but by the fact that the test will run the application.  
 Now that the stubber is running, we can finally we can finally run our tests, pointing our application to the stubber URI.
 
 `export APP_PORT=9092;export SERVICE_FORWARD_URI="http://localhost:1234/data";sbt pact-publish`
@@ -51,7 +51,7 @@ Now that the stubber is running, we can finally we can finally run our tests, po
 This will also run `sbt test` and verify then our provider.
 
 ### App3
-__App3__ is just a __Producer__ so the same steps as App2 apply:
+__App3__ is just a __Provider__ so the same steps as App2 apply:
 
 `export APP_PORT=19092;export SERVICE_FORWARD_URI="http://localhost:1234/data";sbt pact-stubber`  
 `export APP_PORT=9092;export SERVICE_FORWARD_URI="http://localhost:1234/data";sbt pact-publish`
